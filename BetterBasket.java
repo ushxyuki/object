@@ -14,6 +14,13 @@ public class BetterBasket extends Basket implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Adds a product to the basket.
+     * If the same product already exists, its quantity is increased.
+     *
+     * @param product the product to add
+     * @return true if the product was added or updated
+     */
     @Override
     public boolean add(Product product) {
 
@@ -38,10 +45,18 @@ public class BetterBasket extends Basket implements Serializable {
         return super.add(product);
     }
 
-    // Remove entire product if requested, or reduce quantity by 1
-    public boolean remove(String product_num, boolean entire_product) {
+    /**
+     * Removes a product from the basket.
+     * If entireProduct is true, the whole product is removed.
+     * Otherwise, the product quantity is reduced by one.
+     *
+     * @param productNum the product number to remove
+     * @param entireProduct true to remove the whole product
+     * @return true if the product was found and removed or updated
+     */
+    public boolean remove(String productNum, boolean entireProduct) {
 
-        if (product_num == null) {
+        if (productNum == null) {
             return false;
         }
 
@@ -49,9 +64,9 @@ public class BetterBasket extends Basket implements Serializable {
 
             Product product = this.get(i);
 
-            if (product.getProductNum().equals(product_num)) {
+            if (product.getProductNum().equals(productNum)) {
 
-                if (entire_product || product.getQuantity() <= 1) {
+                if (entireProduct || product.getQuantity() <= 1) {
                     this.remove(i);
                     return true;
                 }
@@ -64,7 +79,11 @@ public class BetterBasket extends Basket implements Serializable {
         return false;
     }
 
-    // Get the total number of products in the basket
+    /**
+     * Gets the total number of products in the basket.
+     *
+     * @return total product quantity
+     */
     public int count_products() {
 
         int count = 0;
@@ -76,7 +95,11 @@ public class BetterBasket extends Basket implements Serializable {
         return count;
     }
 
-    // Get total cost for products in the basket
+    /**
+     * Gets the total cost of all products in the basket.
+     *
+     * @return total basket cost
+     */
     public double getTotalCost() {
 
         double cost = 0.0;
